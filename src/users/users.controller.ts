@@ -13,10 +13,10 @@ export class UsersController {
             return this.usersService.getUsers();
         }
 
-        @Get(':id')
-        getUser(@Param('id', ParseIntPipe) id : number) : Promise<User>{
+        /*Get(':id')
+        getUser(@Param('id', ParseIntPipe) id :number) : Promise<User>{
             return this.usersService.getUser(id);
-        }
+        }*/
 
         @Post()
         CrearUsersDto(@Body() newUser:CreateUserDto){
@@ -32,5 +32,7 @@ export class UsersController {
             updateUser(@Param('id', ParseIntPipe)id : number, @Body()user : updateUserDto){
             return this.usersService.updateUser(id,user)
             }
+
+            
     }
 

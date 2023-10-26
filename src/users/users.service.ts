@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './Dto/create-user.dto';
 import { updateUserDto } from './Dto/update-user.dto';
+import { loginUserDto } from './Dto/login-userdto';
  
 
 @Injectable()
@@ -31,7 +32,7 @@ export class UsersService {
     getUser(id:number){
         this.userRepository.findOne({
             where: {
-                id
+                id:id
             }
         })
     }
@@ -61,5 +62,14 @@ export class UsersService {
         }
         const updateUSer = Object.assign(userFound, user);
         return this.userRepository.save(updateUSer);
+    }
+
+    loginUser(user:loginUserDto){
+        return this.userRepository.findOne({
+            where:{
+                UserName : user.UserName,
+                Password : user.Password
+            }
+        })
     }
 }
