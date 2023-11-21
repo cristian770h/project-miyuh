@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
+import { NoticiasModule } from './noticias/noticias.module';
+import { ComentarioController } from './comentarios/comentario.controller';
+import { ComentarioModule } from './comentarios/comentario.module';
 
 
 @Module({
@@ -19,9 +22,11 @@ import { UsersController } from './users/users.controller';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    UsersModule
+    UsersModule,
+    NoticiasModule,
+    ComentarioModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, ComentarioController],
   providers: [AppService],
 })
 export class AppModule {}
