@@ -18,12 +18,23 @@ export class NoticiasService {
         return this.noticiaRepository.find()
     }
 
-    getNoticia(id_Noticia: number) {
-        this.noticiaRepository.findOne({
-            where: {
-                id_Noticia: id_Noticia
+    async getNoticia(id: number): Promise<Noticia> {
+        try {
+            const noticia = await this.noticiaRepository.findOne({
+                where: {
+                    id_Noticia: id
+                }
+            });
+
+            if (!noticia) {
+                throw new Error('Noticia no encontrada');
             }
-        })
+
+            return noticia;
+        } catch (error) {
+            // Manejar el error como consideres adecuado
+            throw error;
+        }
     }
 
     async deleteNoticia(id_Noticia: number) {
@@ -41,16 +52,16 @@ export class NoticiasService {
     }
 
 
-    async updateNoticia(id_Noticia: number, noticia : updateNoticiaDto){
+    async updateNoticia(id_Noticia: number, noticia: updateNoticiaDto) {
         const noticiaFound = await this.noticiaRepository.findOne({
-            where : {
+            where: {
                 id_Noticia
             }
-        })  
-        if(!noticiaFound){
+        })
+        if (!noticiaFound) {
             return new HttpException('Noticia no encontrado', HttpStatus.NOT_FOUND);
         }
-        const updateNoticia = Object.assign(noticiaFound,noticia);
+        const updateNoticia = Object.assign(noticiaFound, noticia);
         return this.noticiaRepository.save(updateNoticia);
     }
 }

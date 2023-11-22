@@ -17,7 +17,7 @@ export class ComentarioService {
     ) { }
 
     async createComentario(createComentarioDto: CreateComentarioDto): Promise<Comentario> {
-        const user = await this.userRepository.findOne({ where: { id: createComentarioDto.Id_User_Id } });
+        const user = await this.userRepository.findOne({ where: { id_user: createComentarioDto.Id_User_Id } });
         const noticia = await this.noticiaRepository.findOne({ where: { id_Noticia: createComentarioDto.Id_Noticia_Id } });
 
         if (!user || !noticia) {
